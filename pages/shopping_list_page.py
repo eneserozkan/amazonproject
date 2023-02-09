@@ -1,23 +1,38 @@
 from selenium.webdriver.common.by import By
 
 from pages.base_page import BasePage
+from pages.product_page import ProductPage
 
 
 class ListPage(BasePage):
     ADD_TO_LIST = (By.ID, "add-to-wishlist-button-submit")
     SHOPPING_LIST = (By.XPATH, "//span[contains(@class, 'nav-text') and normalize-space(text()) = 'Shopping List']")
-    DELETE_BUTTON = (By.ID, "delete-button-I16KQMRGE20EPI")
-    item_name = (By.ID, "itemName_I16KQMRGE20EPI")
+    DELETE_BUTTON = (By.NAME, "submit.deleteItem")
+    CONTINUE_SHOPPING_BUTTON = (By.CLASS_NAME, "//span[contains(@class,'a-button-text')]  [contains(text(),'Continue shopping')]")
+    item_name = (By.ID, "a[id*='itemName_']")
 
     def click_add_to_list(self):
+        """The item which you selected is added to shopping list"""
         self.click_element(*self.ADD_TO_LIST)
 
-    def check_product(self):
-        return self.find_element(*self.item_name).text
+    def click_continue_shopping(self):
+        """For the continuing to the shopping, the function clicks the button."""
+        self.click_element(*self.CONTINUE_SHOPPING_BUTTON)
 
     def click_shopping_list(self):
+        """After you selected your product, it provides us to reach the shopping list"""
         self.click_element(*self.SHOPPING_LIST)
 
+    def check_product(self):
+
+        return self.find_element(*self.item_name).text
+
     def click_delete_button(self):
+        """After going to the shopping list, this function deletes the product that you added
+        to the list."""
         self.click_element(*self.DELETE_BUTTON)
 
+    def check_list_item_name(self):
+        """For assertion, function checks the product name is the same both on the product page
+        and shopping list page."""
+        return self.find_element(self.item_name).text

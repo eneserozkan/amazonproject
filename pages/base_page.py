@@ -8,9 +8,11 @@ class BasePage(object):
         self.wait = WebDriverWait(self.driver, 15)
 
     def find_element(self, *locator):
+        """Finds element"""
         return self.driver.find_element(*locator)
 
     def click_element(self, *locator):
+        """Clicks element"""
         self.find_element(*locator).click()
 
     def send_text(self, text, *locator):

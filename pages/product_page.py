@@ -11,13 +11,22 @@ class ProductPage(BasePage):
     SELECT_PAGINATION = (By.CLASS_NAME, "s-pagination-selected")
 
     def click_second_page(self):
+        """After you filled the searchbox's item name that you want to search,
+        this function provides us to click the second page of the product you search."""
         self.click_element(*self.SECOND_PAGE)
 
     def check_second_page(self):
+        """Assert you are on the 2 page."""
         return self.presence_for_element(self.SELECT_PAGINATION).text == "2"
 
-    def click_third_product(self):
-        self.click_element(*self.THIRD_PRODUCT)
+    def product_text(self):
+        """For the assertion, this function takes the product name that you select"""
+        return self.find_element(self.PRODUCT_TITLE)[2].text
 
-    def click_third_page(self):
+    def click_third_product(self):
+        """Select third product on product page."""
         self.presence_for_all_elements(self.THIRD_PRODUCT)[2].click()
+
+    def is_on_second_page(self):
+        """For assertion, this function checks whether the user is on the 2nd page or not"""
+        return self.presence_for_element(self.SELECT_PAGINATION).text == "2"
