@@ -1,5 +1,6 @@
 import time
-import unittest
+
+from base import data
 from pages.home_page import HomePage
 from pages.login_page import LoginPage
 from pages.product_page import ProductPage
@@ -17,15 +18,15 @@ class TestCheckAmazonWeb(BaseTest):
         home_page.click_sign_in()
 
         login_page = LoginPage(self.driver)
-        login_page.fill_email_textbox(self.valid_mail)
+        login_page.fill_email_textbox(data.email)
         login_page.click_continue_button()
-        login_page.fill_password_textbox(self.valid_password)
+        login_page.fill_password_textbox(data.password)
         login_page.click_sign_in_button()
         home_page.check_main_page()
 
-        home_page.fill_search_box(self.category_name)
+        home_page.fill_search_box(data.search_keyword)
         home_page.click_search_button()
-        assert home_page.check_search_name(), "Search result is uncorrect!"
+        assert home_page.is_correct_search(), "Search result is uncorrect!"
         time.sleep(2)
 
         product_page = ProductPage(self.driver)
@@ -40,6 +41,7 @@ class TestCheckAmazonWeb(BaseTest):
         list_page.click_shopping_list()
         self.assertEqual(product_page.product_text(), list_page.check_list_item_name(), "It is not correct!")
         list_page.click_delete_button()
+        assert not list_page.is_deleted_favorite_product(), "The product has not been deleted from the list"
 
     def tearDown(self):
         self.driver.quit()

@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 
+from base import data
 from pages.base_page import BasePage
 
 
@@ -31,8 +32,7 @@ class HomePage(BasePage):
         """Assert for main page"""
         assert isinstance(self.find_element(*self.CHECK_HOME_PAGE).text, object)
 
-    def check_search_name(self):
-        """Checks the search name is correct or not."""
-
-        return self.presence_for_all_elements(self.SEARCH_TEXT_ELEMENT)[2].text.strip('"') == "samsung"
+    def is_correct_search(self):
+        """Returns search result validation for assert"""
+        return self.presence_for_all_elements(self.SEARCH_TEXT_ELEMENT)[2].text.strip('"') == data.search_keyword
 

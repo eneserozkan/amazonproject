@@ -9,25 +9,41 @@ class BasePage(object):
 
     def find_element(self, *locator):
         """Finds element"""
+
         return self.driver.find_element(*locator)
 
     def click_element(self, *locator):
         """Clicks element"""
+
         self.find_element(*locator).click()
 
     def send_text(self, text, *locator):
+        """this function sends the text"""
+
         self.find_element(*locator).send_keys(text)
 
     def clear_text(self, *locator):
+        """For the clear text"""
+
         self.find_element(*locator).clear()
 
         return self
 
     def wait_element(self, method, message=''):
+
         return self.wait.until(ec.element_to_be_clickable(method), message)
 
     def presence_for_all_elements(self, selector):
+        """
+        Presence for all elements to present
+        selector: locator of the elements to find
+        """
+
         return self.wait.until(ec.presence_of_all_elements_located(selector))
 
     def presence_for_element(self, selector):
+        """
+               Presence for element to present
+        """
+
         return self.wait.until(ec.presence_of_element_located(selector))
