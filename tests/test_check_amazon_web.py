@@ -9,8 +9,8 @@ from tests.base_test import BaseTest
 
 
 class TestCheckAmazonWeb(BaseTest):
-    valid_mail = "enes199689@gmail.com"
-    valid_password = "852456as"
+    valid_mail = "*******@gmail.com"
+    valid_password = "*******"
     category_name = "Samsung"
 
     def test_check_amazon_web(self):
